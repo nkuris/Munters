@@ -208,11 +208,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\nkuri\\source\\repos\\Munters-clone\\Munters.Server\\Munters.Server.csproj",
+      "projectUniqueName": "C:\\Users\\nkuri\\source\\repos\\Munters\\Munters.Server\\Munters.Server.csproj",
       "projectName": "Munters.Server",
-      "projectPath": "C:\\Users\\nkuri\\source\\repos\\Munters-clone\\Munters.Server\\Munters.Server.csproj",
+      "projectPath": "C:\\Users\\nkuri\\source\\repos\\Munters\\Munters.Server\\Munters.Server.csproj",
       "packagesPath": "C:\\Users\\nkuri\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\nkuri\\source\\repos\\Munters-clone\\Munters.Server\\obj\\",
+      "outputPath": "C:\\Users\\nkuri\\source\\repos\\Munters\\Munters.Server\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
