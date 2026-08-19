@@ -22,7 +22,7 @@ function App() {
                     throw new Error(text || `${resp.status} ${resp.statusText}`);
                 }
                 return await resp.json();
-            } catch (e) {
+            } catch {
                 // try next
             }
         }
