@@ -26,3 +26,7 @@ services:
     restart: unless-stopped
     networks:
       - muntersnet
+
+networks:
+  muntersnet:
+    driver: bridge
