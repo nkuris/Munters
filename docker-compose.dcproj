@@ -13,5 +13,7 @@
     <None Include="docker-compose.override.yml.example" />
     <None Include="docker-compose.yml" />
     <None Include=".dockerignore" />
+    <None Include="EXAMINER_INSTRUCTIONS.md" />
+    <None Include="README.md" />
   </ItemGroup>
 </Project>
