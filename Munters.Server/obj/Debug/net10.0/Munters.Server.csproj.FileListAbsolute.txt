@@ -35,3 +35,4 @@ C:\Users\nkuri\source\repos\Munters\Munters.Server\obj\Debug\net10.0\refint\Munt
 C:\Users\nkuri\source\repos\Munters\Munters.Server\obj\Debug\net10.0\Munters.Server.pdb
 C:\Users\nkuri\source\repos\Munters\Munters.Server\obj\Debug\net10.0\Munters.Server.genruntimeconfig.cache
 C:\Users\nkuri\source\repos\Munters\Munters.Server\obj\Debug\net10.0\ref\Munters.Server.dll
+C:\Users\nkuri\source\repos\Munters\Munters.Server\obj\Debug\net10.0\Munters.Server.sourcelink.json

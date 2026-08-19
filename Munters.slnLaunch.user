@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "munters.client\\munters.client.esproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "Munters.Server\\Munters.Server.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]
