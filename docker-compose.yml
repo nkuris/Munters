@@ -9,7 +9,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - Giphy__ApiKey=${GIPHY__APIKEY}
-      - Cors__AllowedOrigins=${Cors__AllowedOrigins}
+      - Cors__AllowedOrigins=${Cors__AllowedOrigins:-http://localhost:3000,http://munters.client:80}
     restart: unless-stopped
     networks:
       - muntersnet
