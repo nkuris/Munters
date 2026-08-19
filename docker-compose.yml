@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  munters.server:
+    build:
+      context: .
+      dockerfile: Munters.Server/Dockerfile
+    image: muntersserver:dev
+    ports:
+      - "8080:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      # GIPHY API key injected from .env for testing. Do not commit this file with a real key.
+      Giphy__ApiKey: ${GIPHY__APIKEY}
+    restart: unless-stopped
+    networks:
+      - muntersnet
+
+  munters.client:
+    build:
+      context: ./munters.client
+      dockerfile: Dockerfile
+    image: muntersclient:dev
+    ports:
+      - "3000:80"
+    depends_on:
+      - munters.server
+    restart: unless-stopped
+    networks:
+      - muntersnet
+
+networks:
+  muntersnet:
+    driver: bridge

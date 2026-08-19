@@ -1,0 +1,6 @@
+@Munters.Server_HostAddress = http://localhost:5145
+
+GET {{Munters.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

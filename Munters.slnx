@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="munters.client/munters.client.esproj">
+    <Build />
+    <Deploy />
+  </Project>
+  <Project Path="Munters.Server/Munters.Server.csproj" />
+</Solution>
