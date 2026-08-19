@@ -26,7 +26,7 @@ function App() {
                 // try next
             }
         }
-        throw new Error('Unable to reach backend API. Make sure the server is running and CORS is configured.');
+        throw new Error('Unable to reach backend API. Make sure the server is running and CORS is configured. Please set the Giphy API key in the server configuration. and docker-compose');
     }
 
     async function fetchTrending() {

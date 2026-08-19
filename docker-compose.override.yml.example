@@ -1,0 +1,12 @@
+# Example docker-compose.override.yml (do NOT commit with real secrets)
+# Use this file locally to override values in docker-compose.yml.
+
+services:
+  munters.server:
+	environment:
+	  - GIPHY__APIKEY=YOUR_API_KEY
+
+# Alternative: reference the local .env file instead of hardcoding the key
+# env_file:
+#   - .env
+# Ensure this file is not checked into source control when it contains secrets.

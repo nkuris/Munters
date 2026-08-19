@@ -30,6 +30,9 @@ Option C - docker-compose/local .env:
   GIPHY__APIKEY=YOUR_API_KEY
 - docker compose will automatically load .env and pass the variable into the container.
 
+Note: docker-compose.yml no longer includes a default test API key. Provide your API key via one of the options above.
+
+
 4) Add API key to Docker Compose
 
 The repository's docker-compose.yml reads the environment variable ${GIPHY__APIKEY} and passes it into the Munters.Server container as Giphy__ApiKey. Provide the value in one of these ways:
@@ -37,6 +40,12 @@ The repository's docker-compose.yml reads the environment variable ${GIPHY__APIK
 - Create a local .env (copy .env.example -> .env) and set GIPHY__APIKEY=YOUR_API_KEY. Do NOT commit .env.
 - Create docker-compose.override.yml (not committed) and add the GIPHY__APIKEY under service.environment.
 - Use your shell to export GIPHY__APIKEY before running docker compose.
+
+If you need to set the key directly in the compose file (not recommended for committed files), edit docker-compose.yml and in the services -> munters.server -> environment block change the Giphy__ApiKey entry to:
+
+  - Giphy__ApiKey=YOUR_API_KEY
+
+Or create a docker-compose.override.yml (uncommitted) that sets the environment variable for local examiner runs.
 
 5) Build & run (clean examiner flow)
 

@@ -1,3 +1,4 @@
 C:\Users\nkuri\source\repos\Munters\munters.client\obj\Debug\munters.client.esproj.CoreCompileInputs.cache
 C:\Users\nkuri\source\repos\TestMunters\munters.client\obj\Debug\munters.client.esproj.CoreCompileInputs.cache
 C:\Users\nkuri\source\repos\Munters-clone\munters.client\obj\Debug\munters.client.esproj.CoreCompileInputs.cache
+C:\Users\nkuri\source\repos\muntersTEST1\Munters\munters.client\obj\Debug\munters.client.esproj.CoreCompileInputs.cache

@@ -3,7 +3,7 @@
 "ServerUrl": "https://localhost:60062",
 "RedirectUrl": "",
 "LaunchCommand": "npm run dev",
-"WorkingDirectory": "C:\\Users\\nkuri\\source\\repos\\Munters-clone\\Munters.Server\\..\\munters.client",
+"WorkingDirectory": "C:\\Users\\nkuri\\source\\repos\\muntersTEST1\\Munters\\Munters.Server\\..\\munters.client",
 "MaxTimeoutInSeconds": "120",
 "KeepRunning": "false"
 }
