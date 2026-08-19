@@ -8,6 +8,9 @@ Quick steps:
 1. Copy .env.example to .env and set your GIPHY key (or use the provided script):
    - copy .env.example .env
    - edit .env and set GIPHY__APIKEY
+   - Note: a .env file with placeholder values has been added to the repository root so you can edit it directly.
+   - Alternative (local development): you can use dotnet user-secrets instead of an environment file. From the Munters.Server folder run:
+	 dotnet user-secrets set "Giphy:ApiKey" "your_giphy_api_key_here"
 
 2. From repository root run (PowerShell):
    .\run-docker.ps1
