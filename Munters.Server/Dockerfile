@@ -8,8 +8,16 @@ EXPOSE 8080
 EXPOSE 8081
 
 
-# This stage is used to build the service project
-FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+# Add Node.js into the build image because the solution contains a client project
+# that invokes npm/vite during the build. Install Node.js before building.
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS with-node
+RUN apt-get update \
+	&& apt-get install -y curl ca-certificates gnupg \
+	&& curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+	&& apt-get install -y nodejs \
+	&& apt-get clean && rm -rf /var/lib/apt/lists/*
+
+FROM with-node AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Munters.Server/Munters.Server.csproj", "Munters.Server/"]
