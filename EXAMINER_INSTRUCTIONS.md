@@ -13,29 +13,30 @@ Examiner instructions - running the project in a clean environment
 
 3) Add API key (local development / examiner environment)
 
-Option A - per-project user-secrets (for .NET projects):
-- cd into the project that requires the secret (example: Munters-clone/src/munters.server)
-- dotnet user-secrets init    # if not initialized
-- dotnet user-secrets set "MUNTERS:ApiKey" "YOUR_API_KEY"
+The project expects the Giphy API key to be configured as the Giphy:ApiKey configuration value. You can provide this in several ways:
 
-Option B - environment variable (process or system):
-- PowerShell (current session):  = 'YOUR_API_KEY'
-- Persist for user: setx MUNTERS_API_KEY "YOUR_API_KEY"
+Option A - per-project user-secrets (recommended for local .NET development):
+- cd into the Munters.Server project folder (example: Munters-clone/Munters.Server)
+- dotnet user-secrets init    # if not already initialized
+- dotnet user-secrets set "Giphy:ApiKey" "YOUR_API_KEY"
+
+Option B - environment variable (for Docker Compose or system-level):
+- Set the environment variable GIPHY__APIKEY to your key (double underscore maps to a colon in IConfiguration).
+- Example (PowerShell, current session): $env:GIPHY__APIKEY = 'YOUR_API_KEY'
+- To persist for the current user: setx GIPHY__APIKEY "YOUR_API_KEY"
+
+Option C - docker-compose/local .env:
+- Create a local .env file at the repository root (copy .env.example to .env) and set:
+  GIPHY__APIKEY=YOUR_API_KEY
+- docker compose will automatically load .env and pass the variable into the container.
 
 4) Add API key to Docker Compose
 
-Option A - environment variable in docker-compose.yml:
+The repository's docker-compose.yml reads the environment variable ${GIPHY__APIKEY} and passes it into the Munters.Server container as Giphy__ApiKey. Provide the value in one of these ways:
 
-- Edit docker-compose.yml and add under the service:
-  environment:
-    - MUNTERS_API_KEY=${MUNTERS_API_KEY}
-
-- Export the variable before running compose:  = 'YOUR_API_KEY'
-
-Option B - Docker secrets (optional):
-
-- Create a secret file: echo "YOUR_API_KEY" | Out-File -Encoding utf8 ./munters_api_key.txt
-- Reference it in docker-compose.yml under secrets and service.secrets
+- Create a local .env (copy .env.example -> .env) and set GIPHY__APIKEY=YOUR_API_KEY. Do NOT commit .env.
+- Create docker-compose.override.yml (not committed) and add the GIPHY__APIKEY under service.environment.
+- Use your shell to export GIPHY__APIKEY before running docker compose.
 
 5) Build & run (clean examiner flow)
 

@@ -8,9 +8,8 @@ services:
       - "8080:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      # WARNING: the API key is embedded here for local compose runs. Do NOT commit this change if you want to keep
-      # the key secret. Prefer using a .env file or docker-compose.override.yml excluded from source control.
-      - Giphy__ApiKey=XZghbdUGNTKfaEqZ7TDgbe5SVvAJHsgV
+      # Prefer supplying the API key from environment or a local .env file.
+      - Giphy__ApiKey=${GIPHY__APIKEY}
       - Cors__AllowedOrigins=${Cors__AllowedOrigins:-http://localhost:3000,http://munters.client:80}
     restart: unless-stopped
     networks:
