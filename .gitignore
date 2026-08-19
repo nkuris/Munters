@@ -1,11 +1,16 @@
 .env
 # Local docker compose overrides
 docker-compose.override.yml
+# Ignore additional local env files
+.env.local
 # Root .gitignore - exclude build artifacts, IDE files, local env, and node modules
 
 # Build output
 bin/
 obj/
+# Ignore build outputs in subfolders
+**/bin/
+**/obj/
 
 # Project-specific container / VS container metadata
 Munters.Server/obj/Container/
@@ -13,6 +18,9 @@ Munters.Server/obj/Container/
 # Node
 node_modules/
 dist/
+# Client build outputs
+munters.client/node_modules/
+munters.client/dist/
 
 # Local env files
 .env
