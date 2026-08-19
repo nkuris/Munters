@@ -1,6 +1,7 @@
 ﻿using Munters.Server.Models;
 using Microsoft.Extensions.Options;
 using System;
+using System.Net;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -27,9 +28,17 @@ namespace Munters.Server.Services
             // Trim whitespace/newlines from API key sourced from environment or files
             var rawKey = options?.Value?.ApiKey;
             var trimmed = rawKey?.Trim();
-            _apiKey = !string.IsNullOrEmpty(trimmed)
-                ? trimmed
-                : throw new InvalidOperationException("Giphy API key is not configured. Set Giphy:ApiKey in configuration or user-secrets.");
+            if (!string.IsNullOrEmpty(trimmed))
+            {
+                _apiKey = trimmed;
+            }
+            else
+            {
+                throw new InvalidOperationException(
+                    "Giphy API key is not configured.\n" +
+                    "Set 'Giphy:ApiKey' in configuration (appsettings.json), provide the environment variable 'GIPHY__APIKEY', or use user-secrets: `dotnet user-secrets set \"Giphy:ApiKey\" \"<your-key>\"`.\n" +
+                    "Get a key at https://developers.giphy.com/.");
+            }
             _logger = logger;
         }
         public async Task<IEnumerable<GifResultDto>> GetTrendingAsync(int limit = 25, CancellationToken cancellationToken = default)
@@ -54,7 +63,23 @@ namespace Munters.Server.Services
 
             if (!resp.IsSuccessStatusCode)
             {
-                // Include body in exception to aid debugging (may contain error details from Giphy)
+                // If Giphy returns 401/403, surface a clear message that the API key is missing or invalid
+                if (resp.StatusCode == HttpStatusCode.Unauthorized || resp.StatusCode == HttpStatusCode.Forbidden)
+                {
+                    throw new InvalidOperationException($"Giphy authentication failed ({(int)resp.StatusCode} {resp.ReasonPhrase}). The configured API key may be missing or invalid.\n" +
+                        "Set 'Giphy:ApiKey' in appsettings.json, the environment variable 'GIPHY__APIKEY', or use user-secrets: `dotnet user-secrets set \"Giphy:ApiKey\" \"<your-key>\"`. Get a key at https://developers.giphy.com/.\n" +
+                        $"Response body: {content}");
+                }
+
+                // If the response body mentions the api key, offer the same guidance to help the developer
+                var lower = content?.ToLowerInvariant() ?? string.Empty;
+                if (lower.Contains("api key") || lower.Contains("api_key") || lower.Contains("invalid api") || lower.Contains("authentication"))
+                {
+                    throw new HttpRequestException($"Giphy returned {(int)resp.StatusCode} {resp.ReasonPhrase}: {content}\n" +
+                        "This may indicate a missing or invalid API key. Set 'Giphy:ApiKey' in appsettings.json, the environment variable 'GIPHY__APIKEY', or use user-secrets: `dotnet user-secrets set \"Giphy:ApiKey\" \"<your-key>\"`. Get a key at https://developers.giphy.com/.");
+                }
+
+                // Otherwise throw a generic HttpRequestException including the response body to aid debugging
                 throw new HttpRequestException($"Giphy returned {(int)resp.StatusCode} {resp.ReasonPhrase}: {content}");
             }
 

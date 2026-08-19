@@ -36,7 +36,7 @@ function App() {
             const data = await fetchWithFallback('/api/giphy/trending');
             setGifs(data);
         } catch (e) {
-            setError(e.message ?? String(e));
+            setError(formatClientError(e.message ?? String(e)));
         } finally {
             setLoading(false);
         }
@@ -55,10 +55,28 @@ function App() {
             const data = await fetchWithFallback(`/api/giphy/search?q=${encoded}`);
             setGifs(data);
         } catch (e) {
-            setError(e.message ?? String(e));
+            setError(formatClientError(e.message ?? String(e)));
         } finally {
             setLoading(false);
         }
+    }
+
+    // Provide a clearer, actionable message to the user when the backend indicates
+    // the Giphy API key is missing or authentication failed.
+    function formatClientError(msg) {
+        const lower = (msg || '').toLowerCase();
+        if (lower.includes('giphy api key') || lower.includes('giphy:apikey') || lower.includes('giphy__apikey') || lower.includes('authentication failed') || lower.includes('unauthorized') || lower.includes('invalid api')) {
+            return (
+                msg +
+                '\n\nThe server indicates the Giphy API key is missing or invalid. To fix this, set the key on the server:\n' +
+                "- In development: run `dotnet user-secrets set \"Giphy:ApiKey\" \"<your-key>\"`\n" +
+                "- Or set environment variable GIPHY__APIKEY (double underscore maps to colon in configuration)\n" +
+                "- Or add to Munters.Server/appsettings.json under 'Giphy: { \"ApiKey\": \"<your-key>\" }'\n\n" +
+                'Get a key at https://developers.giphy.com/'
+            );
+        }
+
+        return msg;
     }
 
     return (
